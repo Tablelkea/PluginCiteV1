@@ -1,5 +1,6 @@
 package org.plugins.plugincitev1.utils;
 
+
 public interface CustomMessages {
 
     /** Liste tous les messages customisés */
@@ -20,14 +21,6 @@ public interface CustomMessages {
     String alreadyInTeam = prefix + "§cYou are already in a team! Please leave your current team before joining another one.";
     String noTeamToLeave = prefix + "§cYou are not in any team!";
 
-    String addedNewCategory = globalPrefix + "§aYou have added a new category!";
-    String removedCategory = globalPrefix + "§cYou have removed a category!";
-    String addedNewItem = globalPrefix + "§aYou have added a new item!";
-    String removedItem = globalPrefix + "§cYou have removed an item!";
-
-    String itemDescription = "§6✦ §7price: §a%price% flocons§6\n \n▶ §7click to buy this item!";
-    String succesPriceChange = globalPrefix + "§aYou have successfully changed the price of the item!";
-    String itemNotFound = globalPrefix + "§cItem not found! Please check the item name and try again.";
     String teamsCommandHelp = globalPrefix + "§7Teams command help:\n" +
             "§6/teams §7- Open the teams GUI\n" +
             "§6/teams end §7- Lock the teams selection\n" +
@@ -37,4 +30,12 @@ public interface CustomMessages {
             "§6/teams add <team> <player> §7- Force a player to join a team";
     String wrongCommandUsage = globalPrefix + "§cWrong command usage! Please use the correct syntax. (/teams help)";
     String joinMessage = "§8[§2+§8] §7%player%";
+    String marketCreationMessage = globalPrefix + "§7You have created a new market";
+    String marketTitle = "§6§lMarket";
+    String marketAlreadyDeployMessage = globalPrefix + "§cThe market is already deployed! Please remove it before deploying a new one.";
+    String marketDeployMessage = globalPrefix + "§7The market has been deployed!";
+    String addedItemToMarketMessage = globalPrefix + "§7You have added {item} to the market.";
+    String removedItemFromMarketMessage = globalPrefix + "§7You have removed {item} from the market.";
+    String marketActuallyDeployMessage = globalPrefix + "§cThe market is already deployed! Please remove it before deploying a new one.";
+    String marketNotDeployMessage = globalPrefix + "§cThe market is not enable!";
 }
