@@ -1,4 +1,4 @@
-name: PluginCiteV1
+name: PluginCite
 version: '1.0'
 main: org.plugins.plugincitev1.Main
 author: 'TableIkea_'

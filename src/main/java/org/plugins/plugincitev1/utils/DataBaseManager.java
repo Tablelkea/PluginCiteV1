@@ -172,25 +172,6 @@ public class DataBaseManager {
         return team;
     }
 
-    /** Permet de se connecter a la base de données */
-
-    public static void connectToDatabase() {
-        FileConfiguration config = Main.instance.getConfig();
-        String host = config.getString("hostname");
-        String database = config.getString("database");
-        String username = config.getString("username");
-        String password = config.getString("password");
-        int port = 3306;
-
-        try {
-            Main.connection = getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, username, password);
-            Main.instance.getLogger().info("Connexion MySQL établie.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Main.instance.getLogger().severe("Échec de la connexion à la base de données.");
-        }
-    }
-
     /** Permet de fermer la connexion à la base de données */
 
     public static void disconnectFromDatabase() {
