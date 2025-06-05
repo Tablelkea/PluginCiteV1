@@ -1,7 +1,6 @@
 package org.plugins.plugincitev1.utils;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.plugins.plugincitev1.Main;
 import org.plugins.plugincitev1.models.Teams;
@@ -9,8 +8,6 @@ import org.plugins.plugincitev1.models.Teams;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
-
-import static java.sql.DriverManager.getConnection;
 
 public class DataBaseManager {
 
