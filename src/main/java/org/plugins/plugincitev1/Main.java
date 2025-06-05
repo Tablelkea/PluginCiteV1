@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.plugins.plugincitev1.commands.MarketCommand;
 import org.plugins.plugincitev1.commands.TeamsCommand;
 import org.plugins.plugincitev1.listeners.TeamsListeners;
+import org.plugins.plugincitev1.models.Market;
 import org.plugins.plugincitev1.utils.DataBaseManager;
 
 import java.sql.Connection;
@@ -24,6 +25,7 @@ public final class Main extends JavaPlugin {
 
         connectToDatabase();
         DataBaseManager.loopOnlinePlayers();
+        Market.loadMarketLocation();
 
         // Plugin startup logic
         Objects.requireNonNull(getCommand("teams")).setExecutor(new TeamsCommand());
