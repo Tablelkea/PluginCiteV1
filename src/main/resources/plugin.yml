@@ -1,0 +1,19 @@
+name: PluginCiteV1
+version: '1.0'
+main: org.plugins.plugincitev1.Main
+author: 'TableIkea_'
+api-version: '1.21'
+commands:
+  teams:
+    description: 'Manage teams'
+    aliases: [team, t]
+    permission: player.execute
+  market:
+    description: 'Manage the market'
+    aliases: [m]
+    permission: player.execute
+
+permission:
+    player.execute:
+        description: 'Allows players to execute the commands'
+        default: true
