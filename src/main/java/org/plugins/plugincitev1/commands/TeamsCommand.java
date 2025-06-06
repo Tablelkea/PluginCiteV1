@@ -19,7 +19,7 @@ public class TeamsCommand implements CommandExecutor {
 
             if (player.isOp()) {
                 if (args.length == 0) {
-                    player.sendMessage(CustomMessage.TEAM_HELP_MESSAGE);
+                    TeamManager.openTeamGUI(player);
                     return true;
                 }
                 switch (args[0]) {
@@ -30,7 +30,7 @@ public class TeamsCommand implements CommandExecutor {
                             TeamManager.listAllTeams(player);
                         }
                     }
-                    case "check" -> TeamManager.checkPlayerTeam(player);
+                    case "check" -> TeamManager.checkPlayerTeam(Bukkit.getPlayer(args[1]));
                     case "forceLeave" -> {
                         Player targetPlayer = Bukkit.getPlayer(args[1]);
                         if(Team.teamsList.get(args[2]) == null) {

@@ -57,6 +57,8 @@ public class TeamManager {
         player.openInventory(teamGui);
     }
 
+    /** Liste toutes les équipes */
+
     public static void listAllTeams(Player player) {
         if (Team.teamsList.isEmpty()) {
             player.sendMessage(CustomMessage.NO_TEAM_IN_LIST);
