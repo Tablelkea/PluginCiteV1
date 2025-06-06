@@ -5,15 +5,14 @@ author: 'TableIkea_'
 api-version: '1.21'
 commands:
   teams:
-    description: 'Manage teams'
-    aliases: [team, t]
-    permission: player.execute
-  market:
-    description: 'Manage the market'
-    aliases: [m]
-    permission: player.execute
+    description: Teams Management
+    aliases: ['equipe','team']
+    permission: player.teams.execute
 
-permission:
-    player.execute:
-        description: 'Allows players to execute the commands'
+permissions:
+    player.teams.execute:
+        description: Allows players to manage teams
         default: true
+    player.teams.admin:
+        description: Allows players to manage teams as an admin
+        default: op

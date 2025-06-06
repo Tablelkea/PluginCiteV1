@@ -5,77 +5,57 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.plugins.plugincitev1.models.Teams;
-import org.plugins.plugincitev1.utils.CustomMessages;
+import org.plugins.plugincitev1.managers.TeamManager;
+import org.plugins.plugincitev1.models.Team;
+import org.plugins.plugincitev1.utils.CustomMessage;
 
-import java.util.List;
-
-public class TeamsCommand implements CommandExecutor, TabCompleter {
-
-    /** Commande de gestion de tout le system d'équipe (/teams) */
-
+public class TeamsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
 
         if (sender instanceof Player player) {
+
             if (player.isOp()) {
                 if (args.length == 0) {
-                    Teams.openTeamsGui(player);
-                } else {
-                    switch (args[0]) {
-                        case "end" -> Teams.lockTeamsSelection();
-                        case "open" -> Teams.openTeamsSelection();
-                        case "look" -> {
-
-                            switch (args[1]) {
-                                case "red" -> Teams.listRedTeam(player);
-                                case "blue" -> Teams.listBlueTeam(player);
-                                case "green" -> Teams.listGreenTeam(player);
-                                case "yellow" -> Teams.listYellowTeam(player);
-                                default -> player.sendMessage(Component.text(CustomMessages.wrongTeamName));
-                            }
+                    player.sendMessage(CustomMessage.TEAM_HELP_MESSAGE);
+                    return true;
+                }
+                switch (args[0]) {
+                    case "list" -> {
+                        if (args.length > 1) {
+                            TeamManager.listAllPlayersInTeam(args[1], player);
+                        } else {
+                            TeamManager.listAllTeams(player);
                         }
-                        case "check" -> {
-                            Player target = Bukkit.getPlayer(args[1]);
-                            Teams.checkPlayer(player, target);
-
-                        }
-                        case "add" -> {
-                            String teamName = args[1].toLowerCase();
-                            Player target = Bukkit.getPlayer(args[2]);
-                            Teams.forceJoinTeam(player, target, teamName);
-                        }
-                        case "remove" -> {
-                            String teamName = args[1].toLowerCase();
-                            Player target = Bukkit.getPlayer(args[2]);
-                            Teams.forceLeaveTeam(player, target, teamName);
-                        }
-                        case "help" -> player.sendMessage(Component.text(CustomMessages.teamsCommandHelp));
-                        default -> player.sendMessage(Component.text(CustomMessages.wrongCommandUsage));
                     }
+                    case "check" -> TeamManager.checkPlayerTeam(player);
+                    case "forceLeave" -> {
+                        Player targetPlayer = Bukkit.getPlayer(args[1]);
+                        if(Team.teamsList.get(args[2]) == null) {
+                            player.sendMessage(CustomMessage.TEAM_NOT_FOUND);
+                            return false;
+                        }
+                        Team.getTeamByName(args[2]).removePlayer(targetPlayer);
+                    }
+                    case "forceJoin" -> {
+                        if (args.length < 3) {
+                            player.sendMessage(Component.text("Usage: /team forceJoin <player> <team>"));
+                            return true;
+                        }
+                        Player targetPlayer = Bukkit.getPlayer(args[1]);
+                        if (Team.getTeamByName(args[2]) == null) {
+                            player.sendMessage(CustomMessage.TEAM_NOT_FOUND);
+                            return false;
+                        }
+                        Team.getTeamByName(args[2]).addPlayer(targetPlayer);
+                    }
+                    default -> player.sendMessage(CustomMessage.TEAM_HELP_MESSAGE);
                 }
             }else{
-                Teams.openTeamsGui(player);
+                TeamManager.openTeamGUI(player);
             }
-
-            return false;
-        }
-        return false;
-    }
-
-    /** Permet de définir les auto-complétions à l'execution d'une commande */
-
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
-        if (args.length == 1) {
-            return List.of("end", "open", "look", "check", "add", "remove");
-        } else if (args.length == 2 && (args[0].equals("look") || args[0].equals("add") || args[0].equals("remove"))) {
-            return List.of("red", "blue", "green", "yellow");
-        }
-        return null;
+        }return true;
     }
 }
